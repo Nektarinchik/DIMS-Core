@@ -1,0 +1,59 @@
+﻿@model IReadOnlyCollection<VUserProfileViewModel>
+
+@{
+    ViewData["Title"] = "UserProfile";
+}
+
+<h2 class="text-center my-4">Members</h2>
+<div class="row justify-content-end mb-1">
+    <div>
+        <a class="btn btn-primary" asp-action="Create">Create</a>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Direction</th>
+                <th scope="col">Education</th>
+                <th scope="col">Start date</th>
+                <th scope="col">Age</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>
+                        @user.FullName
+                    </td>
+                    <td>
+                        @user.Direction
+                    </td>
+                    <td>
+                        @user.Education
+                    </td>
+                    <td>
+                        @(user.StartDate?.ToString("dd.MM.yyyy"))
+                    </td>
+                    <td>
+                        @user.Age
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a asp-action="Details" asp-route-id="@user.UserId" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@user.UserId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

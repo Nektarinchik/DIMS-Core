@@ -1,0 +1,6 @@
+// to skip tracking of this file write: git update-index --skip-worktree .\DIMS-Core\database.json
+{
+    "ConnectionStrings": {
+        "DIMSDatabase": "Server=(localdb)\\MSSQLLocalDB;Database=DIMS-Core.Database;Trusted_Connection=True;"
+    }
+}

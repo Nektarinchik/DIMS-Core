@@ -1,0 +1,16 @@
+﻿@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = "UserProfile Delete";
+}
+
+<h1>UserProfile Delete</h1>
+<div class="row">
+    <div asp-for="FullName" class="control-label"></div>
+    <div asp-for="Email" class="control-label"></div>
+    <form asp-action="delete" asp-antiforgery="true" method="post">
+        <input type="hidden" asp-for="UserId">
+        <input type="submit" value="Delete"/>
+         @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
+    </form>
+</div>

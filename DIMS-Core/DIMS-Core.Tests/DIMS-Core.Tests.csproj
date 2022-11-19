@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>DIMS_Core.Tests</RootNamespace>
+
+    <IsPackable>false</IsPackable>
+
+    <LangVersion>default</LangVersion>
+
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.10" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DIMS-Core.DataAccessLayer\DIMS-Core.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\DIMS-Core.Mailer\DIMS-Core.Mailer.csproj" />
+  </ItemGroup>
+
+</Project>
