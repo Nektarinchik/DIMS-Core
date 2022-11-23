@@ -59,10 +59,7 @@
   <ItemGroup>
     <Folder Include="Procedures" />
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
-    <Folder Include="Views" />
     <Folder Include="Functions" />
-    <Folder Include="SeedData" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tables\Directions.sql" />
@@ -77,6 +74,12 @@
   <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SeedData\TasksSeedData.sql" />
+    <Content Include="Tables\Tasks.sql" />
+    <Content Include="Views\vDirections.sql" />
+    <Content Include="Views\vTasks.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
