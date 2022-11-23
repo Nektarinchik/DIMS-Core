@@ -57,7 +57,6 @@
   <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
-    <Folder Include="Procedures" />
     <Folder Include="Properties" />
     <Folder Include="Functions" />
   </ItemGroup>
@@ -76,6 +75,7 @@
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Procedures\DeleteTaskProcedure.sql" />
     <Content Include="SeedData\TasksSeedData.sql" />
     <Content Include="Tables\Tasks.sql" />
     <Content Include="Views\vDirections.sql" />
