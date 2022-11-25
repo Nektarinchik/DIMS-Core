@@ -8,4 +8,5 @@
 	CONSTRAINT PK_TaskTrack_TaskTrackId PRIMARY KEY (TaskTrackId),
 	CONSTRAINT FK_TaskTrack_UseTask_UserTaskId FOREIGN KEY (UserTaskId) REFERENCES UserTask (UserTaskId)
 		ON DELETE CASCADE
+		ON UPDATE CASCADE
 )
