@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[Tasks]
+﻿CREATE TABLE [dbo].[Tasks]
 (
     [TaskId]       INT             NOT NULL IDENTITY(1,1),
     [Name]         NVARCHAR(50)    NOT NULL,

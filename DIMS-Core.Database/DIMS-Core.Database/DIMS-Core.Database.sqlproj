@@ -16,7 +16,7 @@
     <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -24,6 +24,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -57,22 +58,35 @@
   <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
-    <Folder Include="Procedures" />
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
-    <Folder Include="Views" />
     <Folder Include="Functions" />
-    <Folder Include="SeedData" />
+    <Folder Include="tables\" />
+    <Folder Include="Views\" />
+    <Folder Include="Procedures\" />
+    <Folder Include="SeedData\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tables\Directions.sql" />
     <Build Include="tables\UserProfiles.sql" />
     <Build Include="Views\vUserProfiles.sql" />
     <Build Include="Functions\GetFullAge.sql" />
+    <Build Include="Procedures\DeleteUser.sql" />
+    <Build Include="Tables\Tasks.sql" />
+    <Build Include="Views\vTasks.sql" />
+    <Build Include="Views\vDirections.sql" />
+    <Build Include="Tables\TaskState.sql" />
+    <Build Include="Tables\UserTask.sql" />
+    <Build Include="Tables\TaskTrack.sql" />
+    <Build Include="Views\vUserTask.sql" />
+    <Build Include="Procedures\SetUserTaskAsSuccess.sql" />
+    <Build Include="Procedures\SetUserTaskAsFail.sql" />
+    <Build Include="Procedures\DeleteTask.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SeedData\UserProfilesSeedData.sql" />
     <None Include="SeedData\DirectionsSeedData.sql" />
+    <None Include="SeedData\TasksSeedData.sql" />
+    <None Include="SeedData\TaskStateSeedData.sql" />
   </ItemGroup>
   <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
