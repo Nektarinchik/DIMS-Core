@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
@@ -39,7 +39,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         ///     Repository.
         /// </summary>
         /// <returns></returns>
-        public Task Save()
+        public Task<int> Save()
         {
             return _context.SaveChangesAsync();
         }
