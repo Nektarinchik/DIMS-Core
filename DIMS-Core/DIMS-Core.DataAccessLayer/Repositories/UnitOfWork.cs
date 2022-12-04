@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
+
+using ThreadingTask = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -39,11 +41,10 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         ///     Repository.
         /// </summary>
         /// <returns></returns>
-        public Task Save()
+        public async ThreadingTask SaveAsync()
         {
-            return _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
-
         public void Dispose()
         {
             _context?.Dispose();
