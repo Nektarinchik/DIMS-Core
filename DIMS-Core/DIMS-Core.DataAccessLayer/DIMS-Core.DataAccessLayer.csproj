@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -7,17 +7,6 @@
     <UserSecretsId>a976e32f-9ee7-491c-a12d-c0d658c5292c</UserSecretsId>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\Task.cs" Link="Models\Task.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\TaskState.cs" Link="Models\TaskState.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\TaskTrack.cs" Link="Models\TaskTrack.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\UserTask.cs" Link="Models\UserTask.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\VTask.cs" Link="Models\VTask.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\VUserProgress.cs" Link="Models\VUserProgress.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\VUserTask.cs" Link="Models\VUserTask.cs" />
-    <Compile Include="..\..\..\..\..\..\..\DIMS-Core.DataAccessLayer\Models\VUserTrack.cs" Link="Models\VUserTrack.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />

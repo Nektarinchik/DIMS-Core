@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Models;
 
+using ThreadingTask = System.Threading.Tasks.Task;
+
 namespace DIMS_Core.DataAccessLayer.Interfaces
 {
     public interface IUnitOfWork : IDisposable
@@ -11,7 +13,6 @@ namespace DIMS_Core.DataAccessLayer.Interfaces
         IRepository<Direction> DirectionRepository { get; }
 
         IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
-
-        Task<int> Save();
+        ThreadingTask SaveAsync();
     }
 }

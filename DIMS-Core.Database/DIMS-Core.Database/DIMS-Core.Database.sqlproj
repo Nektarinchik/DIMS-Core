@@ -81,6 +81,8 @@
     <Build Include="Procedures\SetUserTaskAsSuccess.sql" />
     <Build Include="Procedures\SetUserTaskAsFail.sql" />
     <Build Include="Procedures\DeleteTask.sql" />
+    <Build Include="Views\vUserTrack.sql" />
+    <Build Include="Views\vUserProgress.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SeedData\UserProfilesSeedData.sql" />
@@ -91,6 +93,9 @@
   <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="SeedData\Script.PostDeployment.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />

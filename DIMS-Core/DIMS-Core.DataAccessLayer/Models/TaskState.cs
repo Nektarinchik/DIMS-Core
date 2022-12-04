@@ -1,12 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DIMS_Core.DataAccessLayer.Models.temp
+#nullable disable
+
+namespace DIMS_Core.DataAccessLayer.Models
 {
-    internal class TaskState
+    public class TaskState
     {
+        public TaskState()
+        {
+            UserTasks = new HashSet<UserTask>();
+        }
+
+        public int StateId { get; set; }
+        public string StateName { get; set; }
+
+        public virtual ICollection<UserTask> UserTasks { get; set; }
     }
 }
