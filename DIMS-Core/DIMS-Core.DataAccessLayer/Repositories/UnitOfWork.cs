@@ -20,12 +20,20 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public UnitOfWork(DimsCoreContext context,
                           IRepository<UserProfile> userProfileRepository,
                           IRepository<Direction> directionRepository,
+                          IRepository<TaskState> taskStateRepository,
+                          IRepository<TaskTrack> taskTrackRepository,
+                          IRepository<UserTask> userTaskRepository,
+                          IReadOnlyRepository<VUserTask> vUserTaskRepository,
                           IReadOnlyRepository<VUserProfile> vUserProfileRepository)
         {
             _context = context;
 
-            UserProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
-            DirectionRepository = directionRepository ?? throw new ArgumentNullException(nameof(directionRepository));
+            UserProfileRepository  = userProfileRepository  ?? throw new ArgumentNullException(nameof(userProfileRepository));
+            DirectionRepository    = directionRepository    ?? throw new ArgumentNullException(nameof(directionRepository));
+            TaskStateRepository    = taskStateRepository    ?? throw new ArgumentNullException(nameof(taskStateRepository));
+            TaskTrackRepository    = taskTrackRepository    ?? throw new ArgumentNullException(nameof(taskTrackRepository));
+            UserTaskRepository     = userTaskRepository     ?? throw new ArgumentNullException(nameof(userTaskRepository));
+            VUserTaskRepository    = vUserTaskRepository    ?? throw new ArgumentNullException(nameof(vUserTaskRepository));
             VUserProfileRepository = vUserProfileRepository ?? throw new ArgumentNullException(nameof(vUserProfileRepository));
         }
 
@@ -33,7 +41,15 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public IRepository<Direction> DirectionRepository { get; }
 
+        public IRepository<TaskState> TaskStateRepository { get; }
+
+        public IRepository<TaskTrack> TaskTrackRepository { get; }
+
+        public IRepository<UserTask> UserTaskRepository { get; }
+
+
         public IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
+        public IReadOnlyRepository<VUserTask> VUserTaskRepository { get; }
 
         /// <summary>
         ///     This method is not important here because each repository already has same method.
