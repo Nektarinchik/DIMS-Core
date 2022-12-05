@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using DIMS_Core.Common.Exceptions;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -44,10 +45,12 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
             if (objectFromDB is null)
             {
-                // TODO: Task #4
-                // Create custom exception for non existed object in database
-                // based on abstract class BaseException
-                // throw new AnyException(string methodName, string message);
+
+                throw ExceptionsFactory.DbObjectIsNullException(
+                    System.Reflection.MethodBase.GetCurrentMethod().Name,
+                    @$"Object by id = {id} that you try to retrieve from 
+                    {GetType().Name} repository is null"
+                    );
             }
 
             // RECOMMEND: It's better to create a helper static class for errors instead of throwing them

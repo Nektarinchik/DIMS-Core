@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.Common.Exceptions
 {
-    internal static class ExceptionsFactory
+    public static class ExceptionsFactory
     {
         /// <summary>
         /// Use this method to create instance of the DbObjectIsNullException class indirectly
