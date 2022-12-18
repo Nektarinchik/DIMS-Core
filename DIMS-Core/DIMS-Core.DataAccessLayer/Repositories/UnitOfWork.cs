@@ -23,45 +23,33 @@ namespace DIMS_Core.DataAccessLayer.Repositories
                           IRepository<TaskState> taskStateRepository,
                           IRepository<TaskTrack> taskTrackRepository,
                           IUserTaskRepository userTaskRepository,
-                          IRepository<UserTask> userTaskRepository,
-                          IRepository<Models.Task> taskRepository,
                           IReadOnlyRepository<VUserTask> vUserTaskRepository,
-                          IReadOnlyRepository<VUserProfile> vUserProfileRepository,
-                          IReadOnlyRepository<VUserTrack> vUserTrackRepository,
-                          IReadOnlyRepository<VTask> vTaskRepository,
-                          IReadOnlyRepository<VUserProgress> vUserProgressRepository)
+                          IReadOnlyRepository<VUserProfile> vUserProfileRepository)
         {
             _context = context;
 
-            
-            UserProfileRepository   = userProfileRepository   ?? throw new ArgumentNullException(nameof(userProfileRepository));
-            DirectionRepository     = directionRepository     ?? throw new ArgumentNullException(nameof(directionRepository));
-            TaskStateRepository     = taskStateRepository     ?? throw new ArgumentNullException(nameof(taskStateRepository));
-            TaskTrackRepository     = taskTrackRepository     ?? throw new ArgumentNullException(nameof(taskTrackRepository));
-            UserTaskRepository      = userTaskRepository      ?? throw new ArgumentNullException(nameof(userTaskRepository));
-            TaskRepository          = taskRepository          ?? throw new ArgumentNullException(nameof(taskRepository));
-            VUserTaskRepository     = vUserTaskRepository     ?? throw new ArgumentNullException(nameof(vUserTaskRepository));
-            VUserProfileRepository  = vUserProfileRepository  ?? throw new ArgumentNullException(nameof(vUserProfileRepository));
-            VUserTrackRepository    = vUserTrackRepository    ?? throw new ArgumentNullException(nameof(vUserTrackRepository));
-            VTaskRepository         = vTaskRepository         ?? throw new ArgumentNullException(nameof(vTaskRepository));
-            VUserProgressRepository = vUserProgressRepository ?? throw new ArgumentNullException(nameof(vUserProgressRepository));
+            UserProfileRepository  = userProfileRepository  ?? throw new ArgumentNullException(nameof(userProfileRepository));
+            DirectionRepository    = directionRepository    ?? throw new ArgumentNullException(nameof(directionRepository));
+            TaskStateRepository    = taskStateRepository    ?? throw new ArgumentNullException(nameof(taskStateRepository));
+            TaskTrackRepository    = taskTrackRepository    ?? throw new ArgumentNullException(nameof(taskTrackRepository));
+            UserTaskRepository     = userTaskRepository     ?? throw new ArgumentNullException(nameof(userTaskRepository));
+            VUserTaskRepository    = vUserTaskRepository    ?? throw new ArgumentNullException(nameof(vUserTaskRepository));
+            VUserProfileRepository = vUserProfileRepository ?? throw new ArgumentNullException(nameof(vUserProfileRepository));
         }
 
         public IRepository<UserProfile> UserProfileRepository { get; }
+
         public IRepository<Direction> DirectionRepository { get; }
+
         public IRepository<TaskState> TaskStateRepository { get; }
+
         public IRepository<TaskTrack> TaskTrackRepository { get; }
 
         public IUserTaskRepository UserTaskRepository { get; }
 
-        public IRepository<UserTask> UserTaskRepository { get; }
-        public IRepository<Models.Task> TaskRepository { get; }
 
         public IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
         public IReadOnlyRepository<VUserTask> VUserTaskRepository { get; }
-        public IReadOnlyRepository<VUserTrack> VUserTrackRepository { get; }
-        public IReadOnlyRepository<VTask> VTaskRepository { get; }
-        public IReadOnlyRepository<VUserProgress> VUserProgressRepository { get; }
 
         /// <summary>
         ///     This method is not important here because each repository already has same method.
