@@ -12,7 +12,7 @@ namespace DIMS_Core.DataAccessLayer.Interfaces
         IRepository<Direction> DirectionRepository { get; }
         IRepository<TaskState> TaskStateRepository { get; }
         IRepository<TaskTrack> TaskTrackRepository { get; }
-        IRepository<UserTask> UserTaskRepository { get; }
+        IUserTaskRepository UserTaskRepository { get; }
 
         IReadOnlyRepository<VUserTask> VUserTaskRepository { get; }
         IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
