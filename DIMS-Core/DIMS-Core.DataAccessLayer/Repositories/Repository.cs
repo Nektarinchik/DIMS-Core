@@ -62,19 +62,31 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> Create(TEntity entity)
         {
-            EntityEntry<TEntity> create = await Set.AddAsync(entity) ?? throw new ArgumentNullException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            EntityEntry<TEntity> create = await Set.AddAsync(entity);
             return create.Entity;
         }
 
         public TEntity Update(TEntity entity)
         {
-            EntityEntry<TEntity> update = Set.Update(entity) ?? throw new ArgumentNullException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            EntityEntry<TEntity> update = Set.Update(entity);
             return update.Entity;
         }
 
         public virtual async Task Delete(int id)
         {
-            TEntity entity = await Set.FindAsync(id) ?? throw new ArgumentException();
+            if (id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            TEntity entity = await Set.FindAsync(id);
             Set.Remove(entity);
         }
 
