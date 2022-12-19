@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using DIMS_Core.Common.Exceptions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -27,21 +29,20 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public IQueryable<TEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return Set.AsNoTracking();
         }
 
-        public Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(int id)
         {
-            if (id == 0)
+            if (id <= 0)
             {
-                // TODO: Task #3
-                // Create custom exception for invalid arguments
-                // based on abstract class BaseException
-                // throw new AnyException(string paramName);
+                throw ExceptionsFactory.InvArgException(
+                    System.Reflection.MethodBase.GetCurrentMethod().Name,
+                    @$"Id = {id} is invalid. Id cannot be less than 1");
             }
 
             // TODO: type must be adjusted to entity type accordingly
-            object objectFromDB = null;
+            TEntity objectFromDB = await Set.FindAsync(id);
 
             if (objectFromDB is null)
             {
@@ -56,29 +57,48 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             // RECOMMEND: It's better to create a helper static class for errors instead of throwing them
             // Ask us if you stucked and it looks ridiculous for you
 
-            throw new NotImplementedException();
+            return objectFromDB;
         }
 
-        public Task<TEntity> Create(TEntity entity)
+        public async Task<TEntity> Create(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            EntityEntry<TEntity> create = await Set.AddAsync(entity);
+            return create.Entity;
         }
 
         public TEntity Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            EntityEntry<TEntity> update = Set.Update(entity);
+            return update.Entity;
         }
 
-        public Task Delete(int id)
+        public virtual async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            TEntity entity = await Set.FindAsync(id);
+            Set.Remove(entity);
         }
 
         public Task Save()
         {
-            throw new NotImplementedException();
+            return _context.SaveChangesAsync();
         }
-
+        
+        protected DatabaseFacade GetDatabaseFacade()
+        {
+            return _context.Database;
+        }
         /// <summary>
         ///     In most cases this method is not important because our context will be disposed by IoC automatically.
         ///     But if you don't know where will use your service better to specify this method (example, class library).
