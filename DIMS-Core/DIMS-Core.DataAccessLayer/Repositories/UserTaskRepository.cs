@@ -18,6 +18,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         }
         public void SetUserTaskAsFail(int userId, int taskId)
         {
+            
             _ = Set.FromSqlInterpolated($"EXEC SetUserTaskAsFail {userId}, {taskId};");
         }
 

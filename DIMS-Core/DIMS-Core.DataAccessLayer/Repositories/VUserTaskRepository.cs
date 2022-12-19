@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    internal class VUserTaskRepository : IReadOnlyRepository<VUserTask>
+    public class VUserTaskRepository : IReadOnlyRepository<VUserTask>
     {
         private readonly DimsCoreContext _context;
         public VUserTaskRepository(DimsCoreContext context)
