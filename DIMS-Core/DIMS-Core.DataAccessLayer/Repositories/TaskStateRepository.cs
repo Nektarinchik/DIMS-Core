@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    internal class TaskStateRepository : Repository<TaskState>
+    public class TaskStateRepository : Repository<TaskState>
     {
         public TaskStateRepository(DimsCoreContext context) : base(context)
         {
