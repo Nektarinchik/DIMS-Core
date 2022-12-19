@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+using Task = System.Threading.Tasks.Task;
+
 using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories
