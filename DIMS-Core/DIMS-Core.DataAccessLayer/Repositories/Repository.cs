@@ -5,6 +5,7 @@ using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using DIMS_Core.Common.Exceptions;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -33,12 +34,11 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> GetById(int id)
         {
-            if (id == 0)
+            if (id <= 0)
             {
-                // TODO: Task #3
-                // Create custom exception for invalid arguments
-                // based on abstract class BaseException
-                // throw new AnyException(string paramName);
+                throw ExceptionsFactory.InvArgException(
+                    System.Reflection.MethodBase.GetCurrentMethod().Name,
+                    @$"Id = {id} is invalid. Id cannot be less than 1");
             }
 
             // TODO: type must be adjusted to entity type accordingly
@@ -62,19 +62,19 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> Create(TEntity entity)
         {
-            EntityEntry<TEntity> create = await Set.AddAsync(entity);
+            EntityEntry<TEntity> create = await Set.AddAsync(entity) ?? throw new ArgumentNullException();
             return create.Entity;
         }
 
         public TEntity Update(TEntity entity)
         {
-            EntityEntry<TEntity> update = Set.Update(entity);
+            EntityEntry<TEntity> update = Set.Update(entity) ?? throw new ArgumentNullException();
             return update.Entity;
         }
 
-        public async Task Delete(int id)
+        public virtual async Task Delete(int id)
         {
-            TEntity entity = await Set.FindAsync(id);
+            TEntity entity = await Set.FindAsync(id) ?? throw new ArgumentException();
             Set.Remove(entity);
         }
 
@@ -82,7 +82,11 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             return _context.SaveChangesAsync();
         }
-
+        
+        protected DatabaseFacade GetDatabaseFacade()
+        {
+            return _context.Database;
+        }
         /// <summary>
         ///     In most cases this method is not important because our context will be disposed by IoC automatically.
         ///     But if you don't know where will use your service better to specify this method (example, class library).

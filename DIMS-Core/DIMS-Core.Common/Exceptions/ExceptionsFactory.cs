@@ -25,10 +25,9 @@ namespace DIMS_Core.Common.Exceptions
             return new DbObjectIsNullException(methodName, message);
         }
 
-        // You need to implement your Custom InvalidArgumentException
-        public static Exception InvArgException(string paramName)
+        public static Exception InvArgException(string methodName, string message)
         {
-            throw new NotImplementedException();
+            return new InvArgException(methodName, message);
         }
     }
 }
