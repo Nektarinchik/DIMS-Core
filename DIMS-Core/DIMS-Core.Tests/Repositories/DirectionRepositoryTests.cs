@@ -9,6 +9,8 @@ using Task = System.Threading.Tasks.Task;
 
 using Task = System.Threading.Tasks.Task;
 
+using Task = System.Threading.Tasks.Task;
+
 namespace DIMS_Core.Tests.Repositories
 {
     public class DirectionRepositoryTests : IDisposable
