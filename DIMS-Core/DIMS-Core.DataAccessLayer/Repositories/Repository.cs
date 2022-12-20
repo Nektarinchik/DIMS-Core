@@ -41,7 +41,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
                     @$"Id = {id} is invalid. Id cannot be less than 1");
             }
 
-            // TODO: type must be adjusted to entity type accordingly
+            // TODO: type must be ad                    justed to entity type accordingly
             TEntity objectFromDB = await Set.FindAsync(id);
 
             if (objectFromDB is null)
