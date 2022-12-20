@@ -11,7 +11,7 @@ namespace DIMS_Core.DataAccessLayer.Interfaces
 {
     public interface IUserTaskRepository : IRepository<UserTask>
     {
-        public void SetUserTaskAsFail(int userId, int taskId);
-        public void SetUserTaskAsSuccess(int userId, int taskId);
+        public Task SetUserTaskAsFail(int userId, int taskId);
+        public Task SetUserTaskAsSuccess(int userId, int taskId);
     }
 }
