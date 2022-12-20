@@ -22,6 +22,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
                           IRepository<Direction> directionRepository,
                           IRepository<TaskState> taskStateRepository,
                           IRepository<TaskTrack> taskTrackRepository,
+                          IRepository<DIMS_Core.DataAccessLayer.Models.Task> taskRepository,
                           IUserTaskRepository userTaskRepository,
                           IReadOnlyRepository<VUserTask> vUserTaskRepository,
                           IReadOnlyRepository<VUserProfile> vUserProfileRepository,
@@ -49,11 +50,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public IRepository<Direction> DirectionRepository { get; }
         public IRepository<TaskState> TaskStateRepository { get; }
         public IRepository<TaskTrack> TaskTrackRepository { get; }
+        public IRepository<DIMS_Core.DataAccessLayer.Models.Task> TaskRepository { get; }
 
         public IUserTaskRepository UserTaskRepository { get; }
-
-        public IUserTaskRepository UserTaskRepository { get; }
-
 
         public IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
         public IReadOnlyRepository<VUserTask> VUserTaskRepository { get; }

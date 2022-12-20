@@ -1,12 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using Task = System.Threading.Tasks.Task;
-
-using Task = System.Threading.Tasks.Task;
 
 using Task = System.Threading.Tasks.Task;
 
@@ -61,7 +59,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvArgException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -71,7 +69,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = int.MaxValue;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<DbObjectIsNullException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]

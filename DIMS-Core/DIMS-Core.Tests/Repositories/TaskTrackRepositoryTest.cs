@@ -49,7 +49,7 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange
             const int id = 0;
             // Act & Assert
-            await Assert.ThrowsAsync<BaseException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvArgException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]

@@ -16,15 +16,16 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public UserTaskRepository(DimsCoreContext context) : base(context)
         {
         }
-        public void SetUserTaskAsFail(int userId, int taskId)
+        public async Task SetUserTaskAsFail(int userId, int taskId)
         {
-            
-            _ = Set.FromSqlInterpolated($"EXEC SetUserTaskAsFail {userId}, {taskId};");
+            await GetDatabaseFacade().ExecuteSqlInterpolatedAsync(
+                $@"EXEC SetUserTaskAsFail {userId}, {taskId}");
         }
 
-        public void SetUserTaskAsSuccess(int userId, int taskId)
+        public async Task SetUserTaskAsSuccess(int userId, int taskId)
         {
-            _ = Set.FromSqlInterpolated($"EXEC SetUserTaskAsSuccess {userId}, {taskId};");
+            await GetDatabaseFacade().ExecuteSqlInterpolatedAsync(
+                $@"EXEC SetUserTaskAsSuccess {userId}, {taskId}");
         }
     }
 }

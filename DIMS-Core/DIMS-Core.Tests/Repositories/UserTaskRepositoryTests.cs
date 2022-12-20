@@ -51,7 +51,7 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange
             const int id = 0;
             // Act & Assert
-            await Assert.ThrowsAsync<BaseException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvArgException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -161,7 +161,8 @@ namespace DIMS_Core.Tests.Repositories
             await _fixture.Context.SaveChangesAsync();
 
             // Act
-            _fixture.Repository.SetUserTaskAsSuccess(entity.UserId, entity.TaskId);
+            await _fixture.Repository.SetUserTaskAsSuccess(entity.UserId, entity.TaskId);
+            await _fixture.Context.SaveChangesAsync();
 
             // Assert
             var updatedEntity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
@@ -178,7 +179,8 @@ namespace DIMS_Core.Tests.Repositories
             await _fixture.Context.SaveChangesAsync();
 
             // Act
-            _fixture.Repository.SetUserTaskAsFail(entity.UserId, entity.TaskId);
+            await _fixture.Repository.SetUserTaskAsFail(entity.UserId, entity.TaskId);
+            await _fixture.Context.SaveChangesAsync();
 
             // Assert
             var updatedEntity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
