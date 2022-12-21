@@ -1,30 +1,55 @@
-using System;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
-using DIMS_Core.DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DIMS_Core.Tests.Repositories.Fixtures;
-
-public abstract class AbstractRepositoryFixture<TRepository> : IDisposable where TRepository : class
+namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    public readonly DimsCoreContext Context;
-    public TRepository Repository => CreateRepository();
-
-    protected AbstractRepositoryFixture()
+    internal abstract class AbstractRepositoryFixture<TEntity> : IDisposable
+        where TEntity : class
     {
-        var options = new DbContextOptionsBuilder<DimsCoreContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-        Context = new DimsCoreContext(options);
-        
-        InitDb();
-    }
+        public AbstractRepositoryFixture(Type repositoryType)
+        {
+            Context = CreateContext();
+            Repository = (IRepository<TEntity>)Activator.CreateInstance(repositoryType, Context);
 
-    protected abstract TRepository CreateRepository();
-    protected abstract void InitDb();
-    
-    public void Dispose()
-    {
-        Context.Dispose();
+            InitDatabase();
+        }
+
+        public DimsCoreContext Context { get; }
+
+        public IRepository<TEntity> Repository { get; }
+
+        public int EntityId { get; protected set; }
+
+        public void Dispose()
+        {
+            Context.Dispose();
+        }
+
+        protected abstract void InitDatabase();
+
+        private static DimsCoreContext CreateContext()
+        {
+            var options = GetOptions();
+
+            return new DimsCoreContext(options);
+        }
+
+        private static DbContextOptions<DimsCoreContext> GetOptions()
+        {
+            var builder = new DbContextOptionsBuilder<DimsCoreContext>().UseInMemoryDatabase(GetInMemoryDbName());
+
+            return builder.Options;
+        }
+
+        private static string GetInMemoryDbName()
+        {
+            return $"InMemory_{Guid.NewGuid()}";
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace DIMS_Core.Tests.Repositories
 {
     public class UserTaskRepositoryTests : IDisposable
     {
-        private readonly UserTaskRepositoryFixture _fixture;
+        private readonly AbstractRepositoryFixture<UserTask> _fixture;
         public UserTaskRepositoryTests()
         {
             _fixture = new UserTaskRepositoryFixture();
@@ -50,6 +50,7 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             const int id = 0;
+
             // Act & Assert
             await Assert.ThrowsAsync<InvArgException>(() => _fixture.Repository.GetById(id));
         }
@@ -151,43 +152,6 @@ namespace DIMS_Core.Tests.Repositories
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _fixture.Repository.Delete(id));
         }
-
-        [Fact]
-        public async Task SetUserTaskAsSuccess_OK()
-        {
-            // Arrange
-            var entity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
-            entity.StateId = _fixture.ActiveStateId;
-            await _fixture.Context.SaveChangesAsync();
-
-            // Act
-            await _fixture.Repository.SetUserTaskAsSuccess(entity.UserId, entity.TaskId);
-            await _fixture.Context.SaveChangesAsync();
-
-            // Assert
-            var updatedEntity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
-            Assert.NotNull(updatedEntity);
-            Assert.Equal(_fixture.SuccessStateId, updatedEntity.StateId);
-        }
-
-        [Fact]
-        public async Task SetUserTaskAsFail_OK()
-        {
-            // Arrange
-            var entity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
-            entity.StateId = _fixture.ActiveStateId;
-            await _fixture.Context.SaveChangesAsync();
-
-            // Act
-            await _fixture.Repository.SetUserTaskAsFail(entity.UserId, entity.TaskId);
-            await _fixture.Context.SaveChangesAsync();
-
-            // Assert
-            var updatedEntity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
-            Assert.NotNull(updatedEntity);
-            Assert.Equal(_fixture.FailStateId, updatedEntity.StateId);
-        }
-
         public void Dispose()
         {
             _fixture.Dispose();

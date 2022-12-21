@@ -10,20 +10,13 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    internal class TaskTrackRepositoryFixture : IDisposable
+    internal class TaskTrackRepositoryFixture : AbstractRepositoryFixture<TaskTrack>
     {
-        public DimsCoreContext Context { get; set; }
-        public IRepository<TaskTrack> Repository { get; set; }
-        public int EntityId { get; set; }
-        public TaskTrackRepositoryFixture()
+        public TaskTrackRepositoryFixture() :
+            base(typeof(TaskTrackRepository))
         {
-            Context = CreateContext();
-            Repository = new TaskTrackRepository(Context);
-
-            InitDatabase();
         }
-
-        private void InitDatabase()
+        protected override void InitDatabase()
         {
 
             var entry = Context.TaskTracks.Add(new TaskTrack()
@@ -36,27 +29,6 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             
             Context.SaveChanges();
             entry.State = EntityState.Detached;
-        }
-
-        private static DimsCoreContext CreateContext()
-        {
-            return new DimsCoreContext(GetOptions());
-        }
-        private static DbContextOptions<DimsCoreContext> GetOptions()
-        {
-            var builder = new DbContextOptionsBuilder<DimsCoreContext>().UseInMemoryDatabase(GetInMemoryDbName());
-
-            return builder.Options;
-        }
-
-        private static string GetInMemoryDbName()
-        {
-            return $"InMemory_{Guid.NewGuid()}";
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
         }
     }
 }

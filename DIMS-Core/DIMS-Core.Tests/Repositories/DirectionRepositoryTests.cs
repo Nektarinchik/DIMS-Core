@@ -12,7 +12,7 @@ namespace DIMS_Core.Tests.Repositories
 {
     public class DirectionRepositoryTests : IDisposable
     {
-        private readonly DirectionRepositoryFixture _fixture;
+        private readonly AbstractRepositoryFixture<Direction> _fixture;
 
         public DirectionRepositoryTests()
         {
@@ -43,11 +43,11 @@ namespace DIMS_Core.Tests.Repositories
         public async Task GetById_OK()
         {
             // Act
-            var result = await _fixture.Repository.GetById(_fixture.DirectionId);
+            var result = await _fixture.Repository.GetById(_fixture.EntityId);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(_fixture.DirectionId, result.DirectionId);
+            Assert.Equal(_fixture.EntityId, result.DirectionId);
             Assert.Equal("Test Direction", result.Name);
             Assert.Equal("Test Description", result.Description);
         }
@@ -106,7 +106,7 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange
             var entity = new Direction
                          {
-                             DirectionId = _fixture.DirectionId,
+                             DirectionId = _fixture.EntityId,
                              Name = "Create",
                              Description = "Description"
                          };
@@ -133,11 +133,11 @@ namespace DIMS_Core.Tests.Repositories
         public async Task Delete_OK()
         {
             // Act
-            await _fixture.Repository.Delete(_fixture.DirectionId);
+            await _fixture.Repository.Delete(_fixture.EntityId);
             await _fixture.Context.SaveChangesAsync();
 
             // Assert
-            var deletedEntity = await _fixture.Context.Directions.FindAsync(_fixture.DirectionId);
+            var deletedEntity = await _fixture.Context.Directions.FindAsync(_fixture.EntityId);
             Assert.Null(deletedEntity);
         }
 

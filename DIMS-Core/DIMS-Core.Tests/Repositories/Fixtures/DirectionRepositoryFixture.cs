@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories;
@@ -6,23 +6,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    internal class DirectionRepositoryFixture : AbstractRepositoryFixture<DirectionRepository>
+    internal class DirectionRepositoryFixture : AbstractRepositoryFixture<Direction>
     {
-        public int NewDirectionId { get; set; }
-
-        protected override DirectionRepository CreateRepository()
+        public DirectionRepositoryFixture() :
+            base(typeof(DirectionRepository))
         {
-            return new(Context);
         }
 
-        protected override async void InitDb()
+        protected override void InitDatabase()
         {
-            NewDirectionId = (await Context.Directions.AddAsync(new Direction()
-                                                                   {
-                                                                       Name = "Direction Name",
-                                                                       Description = "Direction Description"
-                                                                   })).Entity.DirectionId;
-            await Context.SaveChangesAsync();
+            var entry = Context.Directions.Add(new Direction
+                                               {
+                                                   Name = "Test Direction",
+                                                   Description = "Test Description"
+                                               });
+            EntityId = entry.Entity.DirectionId;
+
+            Context.SaveChanges();
+            entry.State = EntityState.Detached;
         }
+
     }
 }
