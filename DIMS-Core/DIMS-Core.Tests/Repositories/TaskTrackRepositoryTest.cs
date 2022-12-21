@@ -14,7 +14,7 @@ namespace DIMS_Core.Tests.Repositories
 {
     public class TaskTrackRepositoryTest : IDisposable
     {
-        private readonly TaskTrackRepositoryFixture _fixture;
+        private readonly AbstractRepositoryFixture<TaskTrack> _fixture;
         public TaskTrackRepositoryTest()
         {
             _fixture = new TaskTrackRepositoryFixture();
