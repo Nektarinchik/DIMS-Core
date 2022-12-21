@@ -132,7 +132,7 @@ namespace DIMS_Core.Tests.Repositories
             await _fixture.Context.SaveChangesAsync();
 
             // Act
-            var deletedEntity = await _fixture.Context.UserTasks.FindAsync(_fixture.EntityId);
+            var deletedEntity = await _fixture.Context.TaskTracks.FindAsync(_fixture.EntityId);
 
             // Assert
             await Assert.ThrowsAsync<DbObjectIsNullException>(() => _fixture.Repository.GetById(_fixture.EntityId));
