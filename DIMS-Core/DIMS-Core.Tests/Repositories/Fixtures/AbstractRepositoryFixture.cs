@@ -8,7 +8,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures;
 
 public abstract class AbstractRepositoryFixture<TRepository> : IDisposable where TRepository : class
 {
-    public DimsCoreContext Context;
+    public readonly DimsCoreContext Context;
     public TRepository Repository => CreateRepository();
 
     protected AbstractRepositoryFixture()
@@ -17,11 +17,11 @@ public abstract class AbstractRepositoryFixture<TRepository> : IDisposable where
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
         Context = new DimsCoreContext(options);
         
-        InitDB();
+        InitDb();
     }
 
-    public abstract TRepository CreateRepository();
-    protected abstract void InitDB();
+    protected abstract TRepository CreateRepository();
+    protected abstract void InitDb();
     
     public void Dispose()
     {

@@ -35,7 +35,7 @@ namespace DIMS_Core.Tests.Repositories
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Equal(1, result.Length);
+            Assert.Single(result);
         }
 
         [Fact]

@@ -10,12 +10,12 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int NewDirectionId { get; set; }
 
-        public override DirectionRepository CreateRepository()
+        protected override DirectionRepository CreateRepository()
         {
             return new(Context);
         }
 
-        protected override async void InitDB()
+        protected override async void InitDb()
         {
             NewDirectionId = (await Context.Directions.AddAsync(new Direction()
                                                                    {
