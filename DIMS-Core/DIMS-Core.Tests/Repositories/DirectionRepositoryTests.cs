@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
@@ -41,33 +42,23 @@ namespace DIMS_Core.Tests.Repositories
         public async Task GetById_OK()
         {
             // Act
-            var result = await _fixture.Repository.GetById(_fixture.DirectionId);
+            var result = await _fixture.Repository.GetById(_fixture.NewDirectionId);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(_fixture.DirectionId, result.DirectionId);
-            Assert.Equal("Test Direction", result.Name);
-            Assert.Equal("Test Description", result.Description);
+            Assert.Equal(_fixture.NewDirectionId, result.DirectionId);
+            Assert.Equal("Direction Name", result.Name);
+            Assert.Equal("Direction Description", result.Description);
         }
 
         [Fact]
-        public async Task GetById_EmptyId_Fail()
+        public async Task GetById_InvalidId()
         {
             // Arrange
-            const int id = 0;
+            const int id = -1;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _fixture.Repository.GetById(id));
-        }
-
-        [Fact]
-        public async Task GetById_NotExistDirection_Fail()
-        {
-            // Arrange
-            const int id = int.MaxValue;
-
-            // Act, Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvArgException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -76,8 +67,8 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange
             var entity = new Direction
                          {
-                             Name = "Create",
-                             Description = "Description"
+                             Name = "Direction name",
+                             Description = "Direction description"
                          };
 
             // Act
@@ -97,29 +88,7 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange Act, Assert
             await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.Create(null));
         }
-
-        [Fact]
-        public async Task Update_OK()
-        {
-            // Arrange
-            var entity = new Direction
-                         {
-                             DirectionId = _fixture.DirectionId,
-                             Name = "Create",
-                             Description = "Description"
-                         };
-
-            // Act
-            var result = _fixture.Repository.Update(entity);
-            await _fixture.Context.SaveChangesAsync();
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.NotEqual(default, result.DirectionId);
-            Assert.Equal(entity.Name, result.Name);
-            Assert.Equal(entity.Description, result.Description);
-        }
-
+        
         [Fact]
         public void Update_EmptyEntity_Fail()
         {
@@ -131,11 +100,11 @@ namespace DIMS_Core.Tests.Repositories
         public async Task Delete_OK()
         {
             // Act
-            await _fixture.Repository.Delete(_fixture.DirectionId);
+            await _fixture.Repository.Delete(_fixture.NewDirectionId);
             await _fixture.Context.SaveChangesAsync();
 
             // Assert
-            var deletedEntity = await _fixture.Context.Directions.FindAsync(_fixture.DirectionId);
+            var deletedEntity = await _fixture.Context.Directions.FindAsync(_fixture.NewDirectionId);
             Assert.Null(deletedEntity);
         }
 
