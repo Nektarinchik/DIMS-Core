@@ -2,28 +2,33 @@ using System;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories;
-
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.X509;
+using Task = DIMS_Core.DataAccessLayer.Models.Task;
 namespace DIMS_Core.Tests.Repositories.Fixtures;
 
-public class TaskRepositoryFixture : AbstractRepositoryFixture<TaskRepository>
+internal class TaskRepositoryFixture : AbstractRepositoryFixture<Task>
 {
     public int TaskId { get; set; }
+    
 
-    protected override TaskRepository CreateRepository()
+    public TaskRepositoryFixture() : base(typeof(TaskRepository))
     {
-        return new (Context);
     }
 
-    protected override async void InitDb()
+    protected override void InitDatabase()
     {
-        TaskId = (await Context.Tasks.AddAsync(new Task()
-                                                     {
-                                                         Name = "Task Name",
-                                                         Description = "Task Description",
-                                                         StartDate = DateTime.Now.Date,
-                                                         DeadlineDate = DateTime.Now.AddDays(1).Date
-                                                     })).Entity.TaskId;
+        var newTask = Context.Tasks.Add(new Task() 
+            { 
+               Name = "Task Name",
+               Description = "Task Description", 
+               StartDate = DateTime.Now.Date, 
+               DeadlineDate = DateTime.Now.AddDays(1).Date
+          });
 
-        await Context.SaveChangesAsync();
+        EntityId = newTask.Entity.TaskId;
+        
+        Context.SaveChangesAsync();
+        newTask.State = EntityState.Detached;
     }
 }

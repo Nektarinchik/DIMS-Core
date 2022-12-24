@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
+using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -12,9 +13,8 @@ namespace DIMS_Core.Tests.Repositories;
 
 public class TaskRepositoryTest : IDisposable
 {
-    private readonly TaskRepositoryFixture _fixture;
-    
-    
+    private readonly AbstractRepositoryFixture<Task> _fixture;
+
     public TaskRepositoryTest()
     {
         //Arrange
@@ -36,10 +36,10 @@ public class TaskRepositoryTest : IDisposable
     [Fact]
     public async ThreadTask GetById_OK()
     {
-        var result = await _fixture.Repository.GetById(_fixture.TaskId);
+        var result = await _fixture.Repository.GetById(_fixture.EntityId);
         
         Assert.NotNull(result);
-        Assert.Equal(_fixture.TaskId, result.TaskId);
+        Assert.Equal(_fixture.EntityId, result.TaskId);
         Assert.Equal("Task Name", result.Name);
         Assert.Equal("Task Description",result.Description);
         Assert.Equal(DateTime.Now.Date, result.StartDate);
@@ -92,7 +92,7 @@ public class TaskRepositoryTest : IDisposable
             var updatedDescription = "Updated Description";
             var updatedStartDate = DateTime.Now.AddDays(3).Date;
             var updatedDeadlineDate = DateTime.Now.AddDays(13).Date;
-            var updatedTask = await _fixture.Context.Tasks.FindAsync(_fixture.TaskId);
+            var updatedTask = await _fixture.Context.Tasks.FindAsync(_fixture.EntityId);
             updatedTask.Name = updatedName;
             updatedTask.Description = updatedDescription;
             updatedTask.StartDate = updatedStartDate;
@@ -104,7 +104,7 @@ public class TaskRepositoryTest : IDisposable
             
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(_fixture.TaskId, result.TaskId);
+            Assert.Equal(_fixture.EntityId, result.TaskId);
             Assert.Equal(updatedName, result.Name);
             Assert.Equal(updatedDescription, result.Description);
             Assert.Equal(updatedStartDate,result.StartDate);
