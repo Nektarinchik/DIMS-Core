@@ -7,14 +7,17 @@ namespace DIMS_Core.Tests.Repositories.Fixtures;
 
 public class TaskRepositoryFixture : AbstractRepositoryFixture<TaskRepository>
 {
+    
     public int TaskId { get; set; }
+    //public int DeleteTaskId { get; set; }
+    //public int AddTaskId { get; set; }
 
-    protected override TaskRepository CreateRepository()
+    public override TaskRepository CreateRepository()
     {
         return new (Context);
     }
 
-    protected override async void InitDb()
+    protected override async void InitDB()
     {
         TaskId = (await Context.Tasks.AddAsync(new Task()
                                                      {
