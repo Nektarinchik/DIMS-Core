@@ -39,7 +39,7 @@ namespace DIMS_Core.BusinessLayer.Services
             Mapper.Map(userProfileModel, userProfile);
 
             var updatedUserProfile = UnitOfWork.UserProfileRepository.Update(userProfile);
-            await UnitOfWork.Save();
+            await UnitOfWork.SaveAsync();
 
             return Mapper.Map<UserProfileModel>(updatedUserProfile);
         }
@@ -49,7 +49,7 @@ namespace DIMS_Core.BusinessLayer.Services
             var userProfile = Mapper.Map<UserProfile>(userProfileModel);
 
             var createdUserProfile = await UnitOfWork.UserProfileRepository.Create(userProfile);
-            await UnitOfWork.Save();
+            await UnitOfWork.SaveAsync();
 
             return Mapper.Map<UserProfileModel>(createdUserProfile);
         }
@@ -57,7 +57,7 @@ namespace DIMS_Core.BusinessLayer.Services
         public async Task Delete(int id)
         {
             await UnitOfWork.UserProfileRepository.Delete(id);
-            await UnitOfWork.Save();
+            await UnitOfWork.SaveAsync();
         }
 
         /// <summary>
