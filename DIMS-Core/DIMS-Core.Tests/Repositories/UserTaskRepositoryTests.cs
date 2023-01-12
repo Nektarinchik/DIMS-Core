@@ -56,7 +56,6 @@ namespace DIMS_Core.Tests.Repositories
         }
 
         [Fact]
-
         public async Task GetById_NotExistUserTask_Fail()
         {
             // Arrange
@@ -143,7 +142,6 @@ namespace DIMS_Core.Tests.Repositories
         }
 
         [Fact]
-
         public async Task Delete_EmptyId_Fail()
         {
             // Arrange
@@ -152,6 +150,7 @@ namespace DIMS_Core.Tests.Repositories
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _fixture.Repository.Delete(id));
         }
+
         public void Dispose()
         {
             _fixture.Dispose();

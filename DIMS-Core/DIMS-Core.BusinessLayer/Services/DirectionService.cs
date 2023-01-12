@@ -38,7 +38,7 @@ namespace DIMS_Core.BusinessLayer.Services
             Mapper.Map(directionModel, direction);
 
             var updatedDirection = UnitOfWork.DirectionRepository.Update(direction);
-            await UnitOfWork.Save();
+            await UnitOfWork.SaveAsync();
 
             return Mapper.Map<DirectionModel>(updatedDirection);
         }
@@ -48,7 +48,7 @@ namespace DIMS_Core.BusinessLayer.Services
             var direction = Mapper.Map<Direction>(directionModel);
 
             var createdDirection = await UnitOfWork.DirectionRepository.Create(direction);
-            await UnitOfWork.Save();
+            await UnitOfWork.SaveAsync();
 
             return Mapper.Map<DirectionModel>(createdDirection);
         }
@@ -56,7 +56,7 @@ namespace DIMS_Core.BusinessLayer.Services
         public async Task Delete(int id)
         {
             await UnitOfWork.DirectionRepository.Delete(id);
-            await UnitOfWork.Save();
+            await UnitOfWork.SaveAsync();
         }
 
         /// <summary>
