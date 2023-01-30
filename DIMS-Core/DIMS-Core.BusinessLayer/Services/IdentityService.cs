@@ -4,7 +4,7 @@ using DIMS_Core.Identity.Interfaces;
 
 namespace DIMS_Core.BusinessLayer.Services
 {
-    public abstract class IdentityService : IService
+    public abstract class IdentityService
     {
         protected readonly IMapper Mapper;
         protected readonly IIdentityUnitOfWork UnitOfWork;
