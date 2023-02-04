@@ -36,7 +36,7 @@ namespace DIMS_Core.BusinessLayer.Models
 
         public static bool operator ==(UserProfileModel a, UserProfileModel b)
         {
-            return (a?.FirstName == b?.FirstName && a?.LastName == b?.LastName);
+            return a?.FirstName == b?.FirstName && a?.LastName == b?.LastName;
         }
 
         public static bool operator !=(UserProfileModel a, UserProfileModel b)

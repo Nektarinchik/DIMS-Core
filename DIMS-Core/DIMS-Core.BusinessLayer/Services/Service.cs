@@ -18,7 +18,7 @@ public abstract class Service <TModel, TEntity, TRepository> : IService<TModel>
     private TRepository _repository;
     private bool _disposed = false;
 
-    public Service(IMapper mapper, TRepository repository)
+    protected Service(IMapper mapper, TRepository repository)
     {
         _mapper = mapper;
         _repository = repository;
@@ -30,16 +30,18 @@ public abstract class Service <TModel, TEntity, TRepository> : IService<TModel>
         GC.SuppressFinalize(this);
     }
 
-    protected void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
-        if (!_disposed)
+        if (_disposed)
         {
-            if (disposing)
-            {
-                _repository?.Dispose();
-            }
-            _disposed = true;
+            return;
         }
+
+        if (disposing)
+        {
+            _repository?.Dispose();
+        }
+        _disposed = true;
     }
 
     public async Task<TModel> GetById(int id)
