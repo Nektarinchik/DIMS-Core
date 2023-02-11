@@ -5,8 +5,9 @@ using DIMS_Core.BusinessLayer.Models;
 
 namespace DIMS_Core.BusinessLayer.Interfaces
 {
-    public interface IReadOnlyService : IDisposable
+    public interface IReadOnlyService<TModel> : IDisposable
     {
-        Task<IReadOnlyCollection<VUserProfileModel>> GetAll();
+        Task<IReadOnlyCollection<TModel>> GetAll();
+        
     }
 }

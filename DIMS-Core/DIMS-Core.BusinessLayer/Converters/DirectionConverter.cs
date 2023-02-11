@@ -26,7 +26,7 @@ namespace DIMS_Core.BusinessLayer.Converters
 
             using var context = new DimsCoreContext();
             var direction = context.Directions.FirstOrDefault(x => x.Name == directionName);
-
+            
             return direction?.DirectionId ?? 0;
         }
 

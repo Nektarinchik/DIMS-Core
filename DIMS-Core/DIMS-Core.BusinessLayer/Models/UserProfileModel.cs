@@ -1,5 +1,6 @@
 ﻿using System;
 using DIMS_Core.Common.Enums;
+using DIMS_Core.Identity.Entities;
 
 namespace DIMS_Core.BusinessLayer.Models
 {
@@ -33,10 +34,14 @@ namespace DIMS_Core.BusinessLayer.Models
 
         public string MobilePhone { get; set; }
 
-        // TODO: Task # 14
-        // You have to implement operator == by comparing First and Last names
+        public static bool operator ==(UserProfileModel a, UserProfileModel b)
+        {
+            return a?.FirstName == b?.FirstName && a?.LastName == b?.LastName;
+        }
 
-        // TODO: Task # 15
-        // You have to implement operator != by comparing First and Last names
+        public static bool operator !=(UserProfileModel a, UserProfileModel b)
+        {
+            return !(a?.FirstName == b?.FirstName && a?.LastName == b?.LastName);
+        }
     }
 }
